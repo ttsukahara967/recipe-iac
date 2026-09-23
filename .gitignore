@@ -1,0 +1,23 @@
+# node / next / sst
+node_modules/
+.next/
+.open-next/
+.sst/
+next-env.d.ts
+*.tsbuildinfo
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# terraform
+.terraform/
+.terraform-*/
+*.tfstate
+*.tfstate.*
+crash.log
+
+.DS_Store
+.env
+
