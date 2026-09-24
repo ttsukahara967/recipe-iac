@@ -120,6 +120,7 @@ Roughly **$35–40 per month per environment** just for existing (Tokyo region e
 | Aurora | mostly storage only, since it pauses at 0 ACU |
 | Secrets Manager / ECR / logs | a few tens of cents |
 
+- Aurora only auto-pauses when there are **zero** DB connections, so the API opens a connection per request (SQLAlchemy `NullPool`) instead of keeping a pool. With a connection pool, Aurora would stay at 0.5 ACU 24/7 and add roughly **$55–70 per month** per environment
 - Destroy environments you are not using (`make deploy` recreates them in ~15 minutes)
 - The first request after Aurora pauses waits ~15 s for it to resume. Reload if it times out
 

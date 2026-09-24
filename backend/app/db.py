@@ -3,6 +3,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.engine import URL
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.pool import NullPool
 
 
 def _database_url() -> URL:
@@ -16,12 +17,13 @@ def _database_url() -> URL:
     )
 
 
-# Long connect timeout: Aurora Serverless v2 can take 10-20s to resume from 0 ACU
+# NullPool: open a connection per request and close it afterwards. Aurora Serverless v2 only
+# auto-pauses when there are zero connections, so a pool of idle connections would keep it
+# running (and billing) 24/7.
+# Long connect timeout: Aurora can take 10-20s to resume from 0 ACU.
 engine = create_engine(
     _database_url(),
-    pool_pre_ping=True,
-    pool_size=5,
-    max_overflow=5,
+    poolclass=NullPool,
     connect_args={"connect_timeout": 25},
 )
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
