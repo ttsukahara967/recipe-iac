@@ -25,11 +25,34 @@ resource "aws_lb_target_group" "api" {
   }
 }
 
-# HTTP only since there is no domain yet. Add a 443 listener once a custom domain + ACM cert exist
+# With a custom domain, port 80 only redirects to HTTPS. Without one, it serves the API directly.
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.api.arn
   port              = 80
   protocol          = "HTTP"
+
+  default_action {
+    type             = local.use_domain ? "redirect" : "forward"
+    target_group_arn = local.use_domain ? null : aws_lb_target_group.api.arn
+
+    dynamic "redirect" {
+      for_each = local.use_domain ? [1] : []
+      content {
+        port        = "443"
+        protocol    = "HTTPS"
+        status_code = "HTTP_301"
+      }
+    }
+  }
+}
+
+resource "aws_lb_listener" "https" {
+  count             = local.use_domain ? 1 : 0
+  load_balancer_arn = aws_lb.api.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = aws_acm_certificate_validation.api[0].certificate_arn
 
   default_action {
     type             = "forward"

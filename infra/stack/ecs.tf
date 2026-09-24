@@ -122,6 +122,7 @@ resource "aws_ecs_service" "api" {
 
   depends_on = [
     aws_lb_listener.http,
+    aws_lb_listener.https,
     aws_rds_cluster_instance.main,
     aws_iam_role_policy_attachment.task_execution,
     aws_iam_role_policy.task_execution_secrets,

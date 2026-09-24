@@ -113,8 +113,9 @@ deploy-backend: check-env push-image tf-init
 deploy-frontend: check-env tf-init
 	cd frontend && npm install --no-audit --no-fund
 	@api_url=$$($(TF_STACK) output -raw api_url) && \
-	  echo "API_URL=$$api_url" && \
-	  cd frontend && API_URL=$$api_url npx sst deploy --stage $(ENV)
+	  site_domain=$$($(TF_STACK) output -raw site_domain) && \
+	  echo "API_URL=$$api_url SITE_DOMAIN=$$site_domain" && \
+	  cd frontend && API_URL=$$api_url SITE_DOMAIN=$$site_domain npx sst deploy --stage $(ENV)
 
 outputs: check-env tf-init
 	$(TF_STACK) output

@@ -16,6 +16,13 @@ variable "aws_region" {
   default = "ap-northeast-1"
 }
 
+# Root domain whose hosted zone already exists in Route 53 (e.g. "ouchirecipes.com").
+# Leave empty to use the default AWS hostnames without HTTPS on the API.
+variable "domain_name" {
+  type    = string
+  default = ""
+}
+
 variable "vpc_cidr" {
   type = string
 }

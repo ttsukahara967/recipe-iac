@@ -66,6 +66,15 @@ resource "aws_vpc_security_group_ingress_rule" "alb_http" {
   to_port           = 80
 }
 
+resource "aws_vpc_security_group_ingress_rule" "alb_https" {
+  count             = local.use_domain ? 1 : 0
+  security_group_id = aws_security_group.alb.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "tcp"
+  from_port         = 443
+  to_port           = 443
+}
+
 resource "aws_vpc_security_group_egress_rule" "alb_to_api" {
   security_group_id            = aws_security_group.alb.id
   referenced_security_group_id = aws_security_group.api.id

@@ -81,6 +81,21 @@ make plan    ENV=develop   # preview changes
 make outputs ENV=develop   # show the API URL and other outputs
 ```
 
+## Custom domain
+
+Set `domain_name` in `infra/stack/envs/<env>.tfvars` to a domain whose hosted zone exists in Route 53 (registering the domain in Route 53 creates it). Leave it empty to use the default AWS hostnames.
+
+| Environment | Site | API |
+|---|---|---|
+| production | `ouchirecipes.com` (+ `www` redirect) | `api.ouchirecipes.com` |
+| staging | `staging.ouchirecipes.com` | `api.staging.ouchirecipes.com` |
+| develop | `develop.ouchirecipes.com` | `api.develop.ouchirecipes.com` |
+
+- Terraform creates the API certificate (ACM, ap-northeast-1), the DNS records, and an HTTPS listener on the ALB; port 80 redirects to HTTPS
+- SST creates the site certificate (ACM, us-east-1) and DNS records for CloudFront
+- ACM certificates are free and renew automatically; the domain itself is about $16/year and the hosted zone $0.50/month
+- `make destroy` removes the per-environment records and certificates; the domain and hosted zone are kept
+
 ## How deploys work
 
 Everything is built on the local machine from the current working tree (including uncommitted changes) and then shipped to AWS.
@@ -126,7 +141,6 @@ Roughly **$35–40 per month per environment** just for existing (Tokyo region e
 
 ## Before running real production
 
-- ALB is HTTP only → add a custom domain + ACM certificate for HTTPS
 - ECS tasks run in public subnets → move to private subnets with a NAT Gateway or VPC endpoints
 - Add ECS auto scaling and set `api_desired_count` to 2+ to spread across AZs
 - `skip_final_snapshot = true` / `deletion_protection = false` (for one-command teardown) → enable protection for production
