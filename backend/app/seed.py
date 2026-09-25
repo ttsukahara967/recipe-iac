@@ -1,6 +1,9 @@
-"""Initial recipe data. There is no admin UI, so recipes are seeded from here on startup."""
+"""Recipe data. There is no admin UI, so this file is the source of truth: on startup every
+recipe here is inserted or updated (matched by slug). Recipes removed from this list are
+left in the database."""
 
-from sqlalchemy import Connection, insert, select
+from sqlalchemy import Connection
+from sqlalchemy.dialects.postgresql import insert
 
 from .models import Recipe
 
@@ -153,10 +156,49 @@ RECIPES = [
             "いちごを砂糖10g・レモン汁と電子レンジで2分加熱し、ソースにしてかける。",
         ],
     },
+    {
+        "slug": "egg-fried-rice",
+        "title": "パラパラ卵チャーハン",
+        "description": "卵とごはんを先に混ぜておくのがコツ。10分で作れる定番の一皿。",
+        "category": "中華",
+        "cook_time_minutes": 10,
+        "servings": 2,
+        "image_path": "/images/egg-fried-rice.svg",
+        "ingredients": [
+            {"name": "ごはん(温かいもの)", "amount": "茶碗2杯(約300g)"},
+            {"name": "卵", "amount": "2個"},
+            {"name": "長ねぎ", "amount": "1/2本"},
+            {"name": "サラダ油", "amount": "大さじ1.5"},
+            {"name": "鶏がらスープの素", "amount": "小さじ1"},
+            {"name": "塩・こしょう", "amount": "少々"},
+            {"name": "醤油", "amount": "小さじ1"},
+        ],
+        "steps": [
+            "長ねぎはみじん切りにする。ボウルに卵を溶き、ごはんを加えてよく混ぜておく。",
+            "フライパンに油を入れて強火でしっかり熱する。",
+            "卵ごはんを入れ、木べらで切るようにほぐしながら2〜3分炒めてパラパラにする。",
+            "長ねぎ・鶏がらスープの素・塩・こしょうを加えてさっと炒め合わせる。",
+            "鍋肌から醤油を回し入れ、香りが立ったら火を止めて器に盛る。",
+        ],
+    },
+]
+
+_UPDATABLE = [
+    "title",
+    "description",
+    "category",
+    "cook_time_minutes",
+    "servings",
+    "image_path",
+    "ingredients",
+    "steps",
 ]
 
 
-def seed_if_empty(conn: Connection) -> None:
-    if conn.scalar(select(Recipe.id).limit(1)) is not None:
-        return
-    conn.execute(insert(Recipe), RECIPES)
+def seed_recipes(conn: Connection) -> None:
+    stmt = insert(Recipe).values(RECIPES)
+    stmt = stmt.on_conflict_do_update(
+        index_elements=[Recipe.slug],
+        set_={name: stmt.excluded[name] for name in _UPDATABLE},
+    )
+    conn.execute(stmt)

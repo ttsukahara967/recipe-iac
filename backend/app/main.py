@@ -8,17 +8,17 @@ from sqlalchemy.orm import Session
 from .db import Base, engine, get_session
 from .models import Recipe
 from .schemas import RecipeDetail, RecipeSummary
-from .seed import seed_if_empty
+from .seed import seed_recipes
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
-    # Small app, so no migration tool: create tables and seed data on startup
+    # Small app, so no migration tool: create tables and upsert seed data on startup
     # Several tasks may start at once, so serialize this with an advisory lock
     with engine.begin() as conn:
         conn.execute(text("SELECT pg_advisory_xact_lock(20260924)"))
         Base.metadata.create_all(conn)
-        seed_if_empty(conn)
+        seed_recipes(conn)
     yield
 
 
