@@ -102,7 +102,18 @@ plan: check-env tf-init
 	@$(GET_BOOTSTRAP); \
 	$(TF_STACK) plan -input=false -var-file=envs/$(ENV).tfvars -var="api_image=$$repo:$(IMAGE_TAG)"
 
-deploy: check-env deploy-backend deploy-frontend
+# Existing env: frontend first, so new images are already in S3 when the new ECS task
+# upserts the recipes that reference them. New env: backend first, since the frontend
+# needs the API URL from the Terraform outputs (`output -raw` prints nothing for an empty state).
+deploy: check-env tf-init
+	@api_url=$$($(TF_STACK) output -raw api_url 2>/dev/null); \
+	if [ -n "$$api_url" ]; then \
+	  echo "==> Existing $(ENV) environment: deploying frontend (images) first, then backend (data)"; \
+	  $(MAKE) --no-print-directory deploy-frontend deploy-backend ENV=$(ENV); \
+	else \
+	  echo "==> New $(ENV) environment: deploying backend first to get the API URL"; \
+	  $(MAKE) --no-print-directory deploy-backend deploy-frontend ENV=$(ENV); \
+	fi
 	@echo ""
 	@echo "✅ Deployed $(ENV)"
 

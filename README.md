@@ -100,6 +100,8 @@ Set `domain_name` in `infra/stack/envs/<env>.tfvars` to a domain whose hosted zo
 
 Everything is built on the local machine from the current working tree (including uncommitted changes) and then shipped to AWS.
 
+`make deploy` deploys the frontend first for an existing environment, so a new recipe image is already in S3 by the time the new ECS task inserts the recipe that points to it. For a brand-new environment it deploys the backend first, because the frontend needs the API URL from the Terraform outputs.
+
 - **Backend**: the image tag is a hash of the backend sources. `make deploy` builds an arm64 image, pushes it to ECR, and passes it to Terraform. A new task definition revision triggers an ECS rolling update (new task passes the ALB health check → old task is drained; automatic rollback on failure). Unchanged sources produce the same tag, so nothing is redeployed.
 - **Frontend**: SST builds Next.js with OpenNext. Static files (`public/images`, `_next/static`) go to S3, SSR runs on Lambda, and CloudFront routes between them. The CloudFront cache is invalidated on every deploy.
 - **Recipe data** lives in `backend/app/seed.py`. On API startup every recipe there is upserted by `slug`, so adding or editing a recipe and running `make deploy` updates the database. Recipes removed from the file are not deleted.
