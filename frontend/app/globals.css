@@ -251,3 +251,70 @@ a {
   font-weight: 700;
   font-size: 0.9rem;
 }
+
+/* Cards: the title link covers the whole card, the category badge is a separate link on top */
+.card {
+  position: relative;
+}
+
+.card-link {
+  color: inherit;
+}
+
+.card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.badge-link {
+  position: relative;
+  z-index: 1;
+}
+
+.badge-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Loading skeletons */
+.skeleton {
+  background: linear-gradient(90deg, #efe8dc 25%, #f7f2ea 50%, #efe8dc 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s infinite;
+  border-radius: 8px;
+}
+
+.skeleton-chip {
+  width: 72px;
+  height: 34px;
+  border: none;
+}
+
+.skeleton-line {
+  height: 14px;
+  margin: 10px 0;
+}
+
+.skeleton-line.short {
+  width: 30%;
+}
+
+.skeleton-title {
+  height: 32px;
+  width: 60%;
+  margin: 12px 0;
+}
+
+.skeleton-hero {
+  height: 360px;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { fetchRecipe } from "@/lib/api";
+import { categoryHref } from "@/lib/links";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +27,9 @@ export default async function RecipePage({ params }: Props) {
       <img src={recipe.image_path} alt={recipe.title} className="detail-img" />
 
       <header className="detail-header">
-        <span className="badge">{recipe.category}</span>
+        <Link href={categoryHref(recipe.category)} className="badge badge-link">
+          {recipe.category}
+        </Link>
         <h1>{recipe.title}</h1>
         <p>{recipe.description}</p>
         <div className="meta">
