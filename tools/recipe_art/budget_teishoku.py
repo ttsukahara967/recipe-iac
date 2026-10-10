@@ -1,4 +1,4 @@
-"""Budget set-meal (teishoku) series. Run with `python3 tools/recipe_art/budget_teishoku.py`.
+"""Budget set-meal (teishoku) series, plus the shishamo set meal. Run with `python3 tools/recipe_art/budget_teishoku.py`.
 
 All images share the same tray, rice, miso soup and pickles; only the main plate changes.
 """
@@ -153,6 +153,26 @@ def tamagoyaki(rnd):
     return s
 
 
+def shishamo(rnd):
+    s = ""
+    for i in range(5):
+        x = PX - 175 + i * 52
+        y = PY - 45 + i * 20
+        s += f'<g transform="rotate(-22 {x} {y})">'
+        # body: silver back, golden grilled belly bulging with roe
+        s += f'<path d="M{x-62},{y} Q{x-20},{y-18} {x+36},{y-6} L{x+58},{y-14} L{x+54},{y} L{x+58},{y+14} L{x+36},{y+6} Q{x-20},{y+22} {x-62},{y} Z" fill="#c9a26a" stroke="#8a6a3a" stroke-width="2"/>'
+        s += f'<path d="M{x-58},{y-3} Q{x-20},{y-14} {x+34},{y-4}" stroke="#7d8790" stroke-width="5" fill="none" stroke-linecap="round"/>'
+        s += f'<path d="M{x-40},{y+6} Q{x-10},{y+16} {x+20},{y+6}" stroke="#f2c46a" stroke-width="6" fill="none" stroke-linecap="round"/>'
+        s += f'<circle cx="{x-50}" cy="{y-3}" r="4" fill="#2b2b2b"/><circle cx="{x-51}" cy="{y-4}" r="1.3" fill="#ffffff"/>'
+        for k in range(3):
+            s += f'<rect x="{x-30+k*20}" y="{y-9}" width="9" height="5" rx="2" fill="#4a3020" opacity="0.65"/>'
+        s += '</g>'
+    s += blob(PX + 150, PY + 30, 34, "#fbfbf6", rnd, n=10, jitter=0.18, stroke="#e8e8df")
+    s += f'<path d="M{PX+170},{PY-60} a28,28 0 0,1 40,40 z" fill="#f4e04d" stroke="#d9c22a" stroke-width="2"/>'
+    s += f'<path d="M{PX+176},{PY-48} l22,22" stroke="#fbf3a0" stroke-width="3"/>'
+    return s
+
+
 SERIES = [
     ("moyashi-itame-teishoku", moyashi),
     ("pork-shogayaki-teishoku", shogayaki),
@@ -161,6 +181,7 @@ SERIES = [
     ("wiener-cabbage-teishoku", wiener),
     ("atsuage-nikumiso-teishoku", atsuage),
     ("tamagoyaki-hiyayakko-teishoku", tamagoyaki),
+    ("shishamo-teishoku", shishamo),
 ]
 
 if __name__ == "__main__":
