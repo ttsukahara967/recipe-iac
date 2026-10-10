@@ -157,5 +157,6 @@ backend/            FastAPI (same Dockerfile for local and ECS)
 frontend/           Next.js + sst.config.ts
 infra/bootstrap/    account-wide: Terraform state S3 bucket, ECR
 infra/stack/        per environment: VPC / ALB / ECS / Aurora / Secrets Manager (switch via envs/*.tfvars)
+tools/recipe_art/   generator for the SVG recipe illustrations
 Makefile            entry point for everything
 ```
