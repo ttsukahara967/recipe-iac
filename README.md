@@ -27,12 +27,7 @@ Runs locally with docker compose; on AWS, Terraform + SST build and tear down de
 
 ## Architecture
 
-```
-          ┌──────── SST (frontend/sst.config.ts) ────────┐       ┌──────────────── Terraform (infra/stack) ────────────────┐
-Browser ─▶ CloudFront ─▶ Next.js (Lambda / OpenNext) ─SSR fetch─▶ ALB ─▶ ECS Fargate (FastAPI, arm64) ─▶ Aurora PostgreSQL
-                                                                  └─ public subnet ───────────┘   └ private subnet ┘
-                                                                               ▲ image: ECR (infra/bootstrap, shared by all envs)
-```
+![Architecture](docs/architecture.svg)
 
 | Layer | Local | AWS |
 |---|---|---|
@@ -158,5 +153,6 @@ frontend/           Next.js + sst.config.ts
 infra/bootstrap/    account-wide: Terraform state S3 bucket, ECR
 infra/stack/        per environment: VPC / ALB / ECS / Aurora / Secrets Manager (switch via envs/*.tfvars)
 tools/recipe_art/   generator for the SVG recipe illustrations
+tools/architecture_diagram.py   generator for docs/architecture.svg
 Makefile            entry point for everything
 ```
