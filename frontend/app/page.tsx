@@ -91,7 +91,7 @@ async function RecipeList({ category, q }: { category?: string; q?: string }) {
       {recipes.length === 0 ? (
         <p className="empty">
           レシピが見つかりませんでした。
-          {q && "ひらがな・カタカナの違いは気にせず探せますが、「たまご」と「卵」のような漢字とかなの違いは区別されます。別の言い方でも試してみてください。"}
+          {q && "よく使う食材は「たまご」「卵」のような書き方の違いも気にせず探せます。見つからないときは、別の言い方や食材名でも試してみてください。"}
         </p>
       ) : (
         <ul className="grid">
