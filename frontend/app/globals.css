@@ -574,3 +574,26 @@ a {
   color: #fff;
   margin-right: 6px;
 }
+
+/* Footer: tech stack note and source link */
+.site-footer {
+  border-top: 1px solid var(--border);
+  line-height: 1.6;
+}
+
+.site-footer p {
+  margin: 4px 0;
+}
+
+.footer-tech {
+  font-size: 0.8rem;
+}
+
+.footer-link {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
