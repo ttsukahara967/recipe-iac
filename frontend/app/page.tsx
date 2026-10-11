@@ -1,15 +1,20 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import RecipeCard from "./components/RecipeCard";
 import { fetchCategories, fetchRecipes } from "@/lib/api";
 import { categoryHref } from "@/lib/links";
 
 // Always render per request so the build never needs to reach the API
 export const dynamic = "force-dynamic";
 
-type Props = { searchParams: Promise<{ category?: string }> };
+const RECENT_COUNT = 6;
+
+type Props = { searchParams: Promise<{ category?: string; q?: string }> };
 
 export default async function Home({ searchParams }: Props) {
-  const { category } = await searchParams;
+  const { category, q } = await searchParams;
+  const query = q?.trim() || undefined;
+  const showRecent = !category && !query;
 
   return (
     <>
@@ -18,60 +23,110 @@ export default async function Home({ searchParams }: Props) {
         <p>毎日のごはんに使える、かんたんで美味しいレシピを集めました。</p>
       </section>
 
-      {/* Keyed by category so switching categories shows the skeleton immediately
+      {showRecent && (
+        <Suspense fallback={<RecentSkeleton />}>
+          <RecentRecipes />
+        </Suspense>
+      )}
+
+      {/* Keyed by category and query so switching shows the skeleton immediately
           instead of keeping the old list on screen while the API (or a paused Aurora) responds */}
-      <Suspense key={category ?? ""} fallback={<RecipeListSkeleton />}>
-        <RecipeList category={category} />
+      <Suspense key={`${category ?? ""}|${query ?? ""}`} fallback={<RecipeListSkeleton />}>
+        <RecipeList category={category} q={query} />
       </Suspense>
     </>
   );
 }
 
-async function RecipeList({ category }: { category?: string }) {
-  const [recipes, categories] = await Promise.all([fetchRecipes(category), fetchCategories()]);
+async function RecentRecipes() {
+  const recipes = await fetchRecipes({ sort: "new", limit: RECENT_COUNT });
+  if (recipes.length === 0) return null;
+  return (
+    <section className="recent" aria-labelledby="recent-heading">
+      <h2 id="recent-heading" className="section-title">
+        🆕 最近追加されたレシピ
+      </h2>
+      <ul className="recent-row">
+        {recipes.map((r) => (
+          <RecipeCard key={r.id} recipe={r} isNew />
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+async function RecipeList({ category, q }: { category?: string; q?: string }) {
+  const [recipes, categories] = await Promise.all([fetchRecipes({ category, q }), fetchCategories()]);
 
   return (
     <>
       <nav className="chips" aria-label="カテゴリ">
-        <Link href="/" className={`chip ${!category ? "chip-active" : ""}`}>
+        <Link href={q ? `/?q=${encodeURIComponent(q)}` : "/"} className={`chip ${!category ? "chip-active" : ""}`}>
           すべて
         </Link>
         {categories.map((c) => (
-          <Link key={c} href={categoryHref(c)} className={`chip ${category === c ? "chip-active" : ""}`}>
+          <Link
+            key={c}
+            href={q ? `${categoryHref(c)}&q=${encodeURIComponent(q)}` : categoryHref(c)}
+            className={`chip ${category === c ? "chip-active" : ""}`}
+          >
             {c}
           </Link>
         ))}
       </nav>
 
+      {q ? (
+        <div className="search-summary">
+          <h2 className="section-title">
+            「{q}」の検索結果 {recipes.length}件{category && `（${category}）`}
+          </h2>
+          <Link href={category ? categoryHref(category) : "/"} className="search-clear">
+            ✕ 検索をクリア
+          </Link>
+        </div>
+      ) : (
+        !category && <h2 className="section-title">すべてのレシピ</h2>
+      )}
+
       {recipes.length === 0 ? (
-        <p className="empty">レシピが見つかりませんでした。</p>
+        <p className="empty">
+          レシピが見つかりませんでした。
+          {q && "ひらがな・カタカナの違いは気にせず探せますが、「たまご」と「卵」のような漢字とかなの違いは区別されます。別の言い方でも試してみてください。"}
+        </p>
       ) : (
         <ul className="grid">
           {recipes.map((r) => (
-            // The title link stretches over the whole card; the badge sits above it as its own link
-            <li key={r.id} className="card">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={r.image_path} alt="" className="card-img" />
-              <div className="card-body">
-                <Link href={categoryHref(r.category)} className="badge badge-link">
-                  {r.category}
-                </Link>
-                <h2>
-                  <Link href={`/recipes/${r.slug}`} className="card-link">
-                    {r.title}
-                  </Link>
-                </h2>
-                <p>{r.description}</p>
-                <div className="meta">
-                  <span>⏱ {r.cook_time_minutes}分</span>
-                  <span>🍽 {r.servings}人分</span>
-                </div>
-              </div>
-            </li>
+            <RecipeCard key={r.id} recipe={r} />
           ))}
         </ul>
       )}
     </>
+  );
+}
+
+function CardSkeleton() {
+  return (
+    <li className="card">
+      <div className="card-img skeleton" />
+      <div className="card-body">
+        <div className="skeleton skeleton-line short" />
+        <div className="skeleton skeleton-line" />
+        <div className="skeleton skeleton-line" />
+      </div>
+    </li>
+  );
+}
+
+function RecentSkeleton() {
+  return (
+    <section className="recent" aria-busy="true" aria-label="読み込み中">
+      <div className="skeleton skeleton-line short" />
+      <ul className="recent-row">
+        {Array.from({ length: 4 }, (_, i) => (
+          <CardSkeleton key={i} />
+        ))}
+      </ul>
+    </section>
   );
 }
 
@@ -85,14 +140,7 @@ function RecipeListSkeleton() {
       </div>
       <ul className="grid">
         {Array.from({ length: 6 }, (_, i) => (
-          <li key={i} className="card">
-            <div className="card-img skeleton" />
-            <div className="card-body">
-              <div className="skeleton skeleton-line short" />
-              <div className="skeleton skeleton-line" />
-              <div className="skeleton skeleton-line" />
-            </div>
-          </li>
+          <CardSkeleton key={i} />
         ))}
       </ul>
     </div>

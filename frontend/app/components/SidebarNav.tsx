@@ -17,7 +17,7 @@ export default function SidebarNav({ groups }: { groups: SidebarGroup[] }) {
   const activeSlug = pathname.startsWith("/recipes/") ? decodeURIComponent(pathname.split("/")[2] ?? "") : null;
   const activeCategory =
     searchParams.get("category") ?? groups.find((g) => g.recipes.some((r) => r.slug === activeSlug))?.category ?? null;
-  const isAll = pathname === "/" && !searchParams.get("category");
+  const isAll = pathname === "/" && !searchParams.get("category") && !searchParams.get("q");
 
   const [open, setOpen] = useState<Set<string>>(() => new Set(activeCategory ? [activeCategory] : []));
   const [mobileOpen, setMobileOpen] = useState(false);

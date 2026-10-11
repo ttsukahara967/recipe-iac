@@ -1,3 +1,4 @@
+import json
 import os
 
 from sqlalchemy import create_engine
@@ -21,10 +22,12 @@ def _database_url() -> URL:
 # auto-pauses when there are zero connections, so a pool of idle connections would keep it
 # running (and billing) 24/7.
 # Long connect timeout: Aurora can take 10-20s to resume from 0 ACU.
+# JSON columns are stored with real Japanese characters (not \u escapes) so ingredient names are searchable.
 engine = create_engine(
     _database_url(),
     poolclass=NullPool,
     connect_args={"connect_timeout": 25},
+    json_serializer=lambda obj: json.dumps(obj, ensure_ascii=False),
 )
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 

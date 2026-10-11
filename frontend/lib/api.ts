@@ -26,8 +26,20 @@ async function get<T>(path: string): Promise<T | null> {
   return res.json() as Promise<T>;
 }
 
-export async function fetchRecipes(category?: string) {
-  const query = category ? `?category=${encodeURIComponent(category)}` : "";
+export type RecipeQuery = {
+  category?: string;
+  q?: string;
+  sort?: "default" | "new";
+  limit?: number;
+};
+
+export async function fetchRecipes({ category, q, sort, limit }: RecipeQuery = {}) {
+  const params = new URLSearchParams();
+  if (category) params.set("category", category);
+  if (q) params.set("q", q);
+  if (sort) params.set("sort", sort);
+  if (limit) params.set("limit", String(limit));
+  const query = params.size ? `?${params}` : "";
   return (await get<RecipeSummary[]>(`/api/recipes${query}`)) ?? [];
 }
 

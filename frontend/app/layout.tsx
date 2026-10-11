@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import SearchBox from "./components/SearchBox";
 import Sidebar from "./components/Sidebar";
 import "./globals.css";
 
@@ -19,6 +21,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </span>
             おうちレシピ帖
           </Link>
+          <Suspense>
+            <SearchBox />
+          </Suspense>
         </header>
         <div className="layout">
           <Sidebar />
