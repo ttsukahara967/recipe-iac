@@ -5,6 +5,9 @@
 #               make deploy  ENV=develop       (push image -> Terraform -> SST; builds the whole env)
 #               make destroy ENV=develop       (tears down the whole env)
 #               make nuke                      (deletes every env + state bucket + ECR)
+#    Billing:   make billing                   (once per account: budget alerts + daily cost email)
+#               make destroy-billing           (tears down the billing monitoring)
+#               (set TF_VAR_budget_alert_email=you@example.com; never committed)
 # ==============================================================================
 
 ENV        ?= develop
@@ -12,12 +15,14 @@ ENVS       := develop staging production
 AWS_REGION ?= ap-northeast-1
 STACK      := infra/stack
 BOOTSTRAP  := infra/bootstrap
+BILLING    := infra/billing
 TF_VERSION ?= 1.16
 
 export AWS_REGION
 
 AWS_DOCKER_OPTS = -v "$(HOME)/.aws:/root/.aws" \
-	-e AWS_PROFILE -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN
+	-e AWS_PROFILE -e AWS_REGION -e AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY -e AWS_SESSION_TOKEN \
+	-e TF_VAR_budget_alert_email -e TF_VAR_budget_limit_usd
 
 # Fall back to the official docker images when terraform / aws CLI are not installed
 ifeq ($(shell command -v terraform 2>/dev/null),)
@@ -46,7 +51,8 @@ GET_BOOTSTRAP = bucket=$$($(TF) -chdir=$(BOOTSTRAP) output -raw state_bucket 2>/
 	|| { echo "Bootstrap not found. Run 'make bootstrap' first."; exit 1; }
 
 .PHONY: help local-up local-down local-clean local-logs bootstrap push-image tf-init plan \
-	deploy deploy-backend deploy-frontend outputs destroy destroy-frontend destroy-backend nuke check-env confirm
+	deploy deploy-backend deploy-frontend outputs destroy destroy-frontend destroy-backend nuke check-env confirm \
+	billing billing-plan cost-report-now destroy-billing check-billing-email
 
 help:
 	@grep -E '^#  |^#    ' Makefile | sed 's/^#//'
@@ -82,6 +88,30 @@ confirm:
 bootstrap:
 	$(TF) -chdir=$(BOOTSTRAP) init -input=false
 	$(TF) -chdir=$(BOOTSTRAP) apply -input=false -auto-approve
+
+# ---------------------------------------------------------------- billing (account-wide, run once)
+check-billing-email:
+	@[ -n "$$TF_VAR_budget_alert_email" ] || \
+	  { echo "Set TF_VAR_budget_alert_email=you@example.com (it is never written to the repo)."; exit 1; }
+
+billing-plan: check-billing-email
+	$(TF) -chdir=$(BILLING) init -input=false
+	$(TF) -chdir=$(BILLING) plan -input=false
+
+billing: check-billing-email
+	$(TF) -chdir=$(BILLING) init -input=false
+	$(TF) -chdir=$(BILLING) apply -input=false -auto-approve
+	@echo ""
+	@echo "✅ Billing monitoring deployed. Confirm the SNS subscription email, then: make cost-report-now"
+
+# Send the daily cost report immediately (after the SNS subscription is confirmed)
+cost-report-now:
+	@fn=$$($(TF) -chdir=$(BILLING) output -raw lambda_function_name 2>/dev/null) && \
+	echo "==> invoking $$fn" && \
+	$(AWS) lambda invoke --function-name $$fn --region $(AWS_REGION) /dev/stdout
+
+destroy-billing: check-billing-email
+	$(TF) -chdir=$(BILLING) destroy -input=false -auto-approve
 
 # Build the API image (arm64) and push it to ECR
 push-image:

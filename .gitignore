@@ -18,6 +18,9 @@ __pycache__/
 *.tfstate.*
 crash.log
 
+# lambda build artifacts
+infra/billing/build/
+
 .DS_Store
 .env
 
