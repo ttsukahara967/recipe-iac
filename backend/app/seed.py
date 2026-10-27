@@ -1512,7 +1512,7 @@ RECIPES = [
         "category": "デザート",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/fluffy-pancakes.svg",
+        "image_path": "/images/fluffy-pancakes.webp",
         "ingredients": [
             {"name": "薄力粉", "amount": "150g"},
             {"name": "ベーキングパウダー", "amount": "小さじ2"},
@@ -1738,7 +1738,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/mapo-tofu-ramen.svg",
+        "image_path": "/images/mapo-tofu-ramen.webp",
         "ingredients": [
             {"name": "生ラーメン(しょうゆ味・スープ付き)", "amount": "2食"},
             {"name": "絹ごし豆腐", "amount": "1丁(300g)"},
@@ -1772,7 +1772,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/kinugasa-don.svg",
+        "image_path": "/images/kinugasa-don.webp",
         "ingredients": [
             {"name": "ごはん", "amount": "丼1杯"},
             {"name": "油揚げ", "amount": "1枚"},
@@ -1800,7 +1800,7 @@ RECIPES = [
         "category": "夜食・軽食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/cheese-gyudon.svg",
+        "image_path": "/images/cheese-gyudon.webp",
         "ingredients": [
             {"name": "ごはん", "amount": "丼1杯"},
             {"name": "牛こま切れ肉", "amount": "120g"},
@@ -1831,7 +1831,7 @@ RECIPES = [
         "category": "沖縄料理",
         "cook_time_minutes": 30,
         "servings": 2,
-        "image_path": "/images/okinawa-soba.svg",
+        "image_path": "/images/okinawa-soba.webp",
         "ingredients": [
             {"name": "沖縄そば麺(なければ中華麺の細めでも)", "amount": "2玉"},
             {"name": "豚バラブロック(三枚肉)", "amount": "250g"},
@@ -1862,7 +1862,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/loco-moco.svg",
+        "image_path": "/images/loco-moco.webp",
         "ingredients": [
             {"name": "ごはん", "amount": "丼2杯"},
             {"name": "合いびき肉", "amount": "250g"},
