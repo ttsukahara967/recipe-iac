@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <radialGradient id="shadow"><stop offset="0.7" stop-color="#000" stop-opacity="0.25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+    <radialGradient id="rice" cx="0.5" cy="0.4" r="0.65">
+      <stop offset="0" stop-color="#fdfbf5"/><stop offset="0.7" stop-color="#f1ece0"/><stop offset="1" stop-color="#ddd5c5"/>
+    </radialGradient>
+    <radialGradient id="patty" cx="0.45" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#7a5230"/><stop offset="0.7" stop-color="#5e3d22"/><stop offset="1" stop-color="#452c17"/>
+    </radialGradient>
+    <linearGradient id="bowl" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3f1ec"/><stop offset="1" stop-color="#d4cec2"/>
+    </linearGradient>
+    <linearGradient id="bowlrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e6e0d4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- table -->
+  <rect width="800" height="600" fill="#2f2a28"/>
+  <g stroke="#1c1817" stroke-width="1.2" fill="none" opacity="0.35">
+    <path d="M0,80 C200,72 400,88 800,78"/><path d="M0,200 C200,192 400,208 800,198"/>
+    <path d="M0,520 C200,512 400,528 800,518"/>
+  </g>
+  <rect x="0" y="140" width="800" height="2" fill="#1c1817" opacity="0.4"/>
+  <rect x="0" y="460" width="800" height="2" fill="#1c1817" opacity="0.4"/>
+
+  <!-- steam -->
+  <g stroke="#ffffff" stroke-width="7" fill="none" opacity="0.14" stroke-linecap="round">
+    <path d="M345,150 C315,110 375,90 345,45"/>
+    <path d="M455,150 C425,110 485,90 455,45"/>
+  </g>
+
+  <!-- bowl shadow -->
+  <ellipse cx="400" cy="472" rx="252" ry="48" fill="url(#shadow)"/>
+
+  <!-- bowl -->
+  <path d="M150,330 a250,70 0 0 0 500,0 l-30,122 a224,62 0 0 1 -440,0 z" fill="url(#bowl)" stroke="#bdb7ab" stroke-width="2"/>
+  <ellipse cx="400" cy="330" rx="250" ry="72" fill="url(#bowlrim)" stroke="#cfc9bf" stroke-width="2"/>
+
+  <!-- rice -->
+  <ellipse cx="400" cy="334" rx="230" ry="62" fill="url(#rice)"/>
+  <g fill="#ffffff" opacity="0.6">
+    <ellipse cx="300" cy="320" rx="20" ry="8"/><ellipse cx="500" cy="322" rx="20" ry="8"/>
+    <ellipse cx="340" cy="372" rx="18" ry="7"/><ellipse cx="470" cy="368" rx="18" ry="7"/>
+  </g>
+
+  <!-- brown gravy pooling over rice -->
+  <path d="M250,330 q60,-24 150,-16 q120,8 150,20 q10,22 -40,34 q-120,26 -230,6 q-44,-10 -40,-30 q4,-10 50,-14 z"
+        fill="#4a3017" opacity="0.88"/>
+  <path d="M270,352 q130,24 260,-4" fill="none" stroke="#2f1d0c" stroke-width="4" opacity="0.5"/>
+
+  <!-- hamburger patty -->
+  <ellipse cx="380" cy="334" rx="120" ry="44" fill="url(#patty)" stroke="#3a2512" stroke-width="2"/>
+  <!-- grill marks + texture -->
+  <g stroke="#3a2512" stroke-width="3" opacity="0.5">
+    <line x1="310" y1="322" x2="360" y2="346"/><line x1="350" y1="316" x2="400" y2="340"/>
+    <line x1="390" y1="320" x2="438" y2="344"/>
+  </g>
+  <ellipse cx="350" cy="322" rx="40" ry="12" fill="#8a5f38" opacity="0.5"/>
+
+  <!-- sunny-side-up egg on the patty -->
+  <ellipse cx="400" cy="320" rx="78" ry="38" fill="#fdfaf2" stroke="#efe8d6" stroke-width="2"/>
+  <ellipse cx="404" cy="316" rx="26" ry="22" fill="#f6b23a"/>
+  <ellipse cx="396" cy="309" rx="8" ry="6" fill="#ffd98a" opacity="0.85"/>
+
+  <!-- garnish: cherry tomato + lettuce edge -->
+  <path d="M250,352 q-26,-6 -42,8 q18,14 42,8 z" fill="#5fa23a" opacity="0.9"/>
+  <circle cx="540" cy="352" r="18" fill="#d33b2c"/>
+  <ellipse cx="534" cy="345" rx="6" ry="4" fill="#ff7a68" opacity="0.7"/>
+  <path d="M540,336 l-5,-8 l10,2 z" fill="#4f8a35"/>
+
+  <!-- parsley flecks -->
+  <g fill="#5fa23a">
+    <circle cx="360" cy="300" r="3"/><circle cx="430" cy="300" r="3"/><circle cx="470" cy="340" r="3"/>
+  </g>
+
+  <!-- fork -->
+  <g transform="rotate(16 640 420)">
+    <rect x="636" y="300" width="9" height="150" rx="4" fill="#d9d4c9"/>
+    <g fill="#d9d4c9">
+      <rect x="620" y="296" width="5" height="34" rx="2"/><rect x="630" y="294" width="5" height="36" rx="2"/>
+      <rect x="640" y="294" width="5" height="36" rx="2"/><rect x="650" y="296" width="5" height="34" rx="2"/>
+    </g>
+  </g>
+</svg>
