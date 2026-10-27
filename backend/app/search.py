@@ -76,6 +76,13 @@ def split_terms(q: str | None) -> list[str]:
     return [t for t in unicodedata.normalize("NFKC", q).split() if t]
 
 
+def english_terms(q: str | None) -> list[str]:
+    """Split an English query into LIKE-escaped, whitespace-separated terms (matched case-insensitively)."""
+    if not q:
+        return []
+    return [_escape_like(t) for t in q.split() if t]
+
+
 def _synonym_spellings(term: str) -> set[str]:
     """The term plus copies where a synonym-group word inside it is swapped for the other spellings.
 

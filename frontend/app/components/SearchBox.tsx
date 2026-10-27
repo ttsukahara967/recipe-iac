@@ -1,22 +1,27 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { defaultLocale, isLocale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-// Plain GET form to /?q=..., so results are shareable URLs and it works before hydration
+// Plain GET form to /<locale>?q=..., so results are shareable URLs and it works before hydration
 export default function SearchBox() {
+  const seg = usePathname().split("/")[1] ?? "";
+  const locale = isLocale(seg) ? seg : defaultLocale;
+  const dict = getDictionary(locale);
   const q = useSearchParams().get("q") ?? "";
   return (
-    <form action="/" method="get" role="search" className="search-box">
+    <form action={`/${locale}`} method="get" role="search" className="search-box">
       <input
         key={q}
         type="search"
         name="q"
         defaultValue={q}
-        placeholder="料理名や材料で探す（例：卵、豚こま）"
-        aria-label="レシピを検索"
+        placeholder={dict.searchPlaceholder}
+        aria-label={dict.searchLabel}
         maxLength={100}
       />
-      <button type="submit" aria-label="検索">
+      <button type="submit" aria-label={dict.searchButton}>
         🔍
       </button>
     </form>

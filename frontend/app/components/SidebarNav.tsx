@@ -3,21 +3,26 @@
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { categoryHref } from "@/lib/links";
+import type { Locale } from "@/i18n/config";
+import { categoryLabel, getDictionary } from "@/i18n/dictionaries";
+import { categoryHref, homeHref, recipeHref } from "@/lib/links";
 
 export type SidebarGroup = {
   category: string;
   recipes: { slug: string; title: string }[];
 };
 
-export default function SidebarNav({ groups }: { groups: SidebarGroup[] }) {
+export default function SidebarNav({ groups, locale }: { groups: SidebarGroup[]; locale: Locale }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const dict = getDictionary(locale);
 
-  const activeSlug = pathname.startsWith("/recipes/") ? decodeURIComponent(pathname.split("/")[2] ?? "") : null;
+  // Paths are locale-prefixed: /<locale>, /<locale>/recipes/<slug>
+  const segments = pathname.split("/");
+  const activeSlug = segments[2] === "recipes" ? decodeURIComponent(segments[3] ?? "") : null;
   const activeCategory =
     searchParams.get("category") ?? groups.find((g) => g.recipes.some((r) => r.slug === activeSlug))?.category ?? null;
-  const isAll = pathname === "/" && !searchParams.get("category") && !searchParams.get("q");
+  const isAll = pathname === `/${locale}` && !searchParams.get("category") && !searchParams.get("q");
 
   const [open, setOpen] = useState<Set<string>>(() => new Set(activeCategory ? [activeCategory] : []));
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -44,17 +49,18 @@ export default function SidebarNav({ groups }: { groups: SidebarGroup[] }) {
         aria-expanded={mobileOpen}
         onClick={() => setMobileOpen((o) => !o)}
       >
-        {mobileOpen ? "✕ 閉じる" : "☰ カテゴリー・メニュー"}
+        {mobileOpen ? dict.menuClose : dict.menuOpen}
       </button>
 
       <nav className={`sidebar-nav ${mobileOpen ? "is-open" : ""}`}>
-        <Link href="/" className={`sidebar-all ${isAll ? "is-active" : ""}`}>
-          すべてのレシピ
+        <Link href={homeHref(locale)} className={`sidebar-all ${isAll ? "is-active" : ""}`}>
+          {dict.allRecipes}
         </Link>
 
         <ul className="sidebar-groups">
           {groups.map((g) => {
             const isOpen = open.has(g.category);
+            const label = categoryLabel(locale, g.category);
             return (
               <li key={g.category}>
                 <div className={`sidebar-category ${activeCategory === g.category ? "is-active" : ""}`}>
@@ -62,13 +68,13 @@ export default function SidebarNav({ groups }: { groups: SidebarGroup[] }) {
                     type="button"
                     className="sidebar-expand"
                     aria-expanded={isOpen}
-                    aria-label={`${g.category}のメニューを${isOpen ? "閉じる" : "開く"}`}
+                    aria-label={dict.categoryMenuAria(label, isOpen)}
                     onClick={() => toggle(g.category)}
                   >
                     {isOpen ? "▾" : "▸"}
                   </button>
-                  <Link href={categoryHref(g.category)} className="sidebar-category-link">
-                    {g.category}
+                  <Link href={categoryHref(locale, g.category)} className="sidebar-category-link">
+                    {label}
                   </Link>
                   <span className="sidebar-count">{g.recipes.length}</span>
                 </div>
@@ -77,7 +83,7 @@ export default function SidebarNav({ groups }: { groups: SidebarGroup[] }) {
                     {g.recipes.map((r) => (
                       <li key={r.slug}>
                         <Link
-                          href={`/recipes/${r.slug}`}
+                          href={recipeHref(locale, r.slug)}
                           className={r.slug === activeSlug ? "is-active" : ""}
                           aria-current={r.slug === activeSlug ? "page" : undefined}
                         >

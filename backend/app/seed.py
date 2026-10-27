@@ -6,6 +6,7 @@ from sqlalchemy import Connection
 from sqlalchemy.dialects.postgresql import insert
 
 from .models import Recipe
+from .seed_translations import TRANSLATIONS
 
 RECIPES = [
     {
@@ -1897,11 +1898,25 @@ _UPDATABLE = [
     "image_path",
     "ingredients",
     "steps",
+    "title_en",
+    "description_en",
+    "ingredients_en",
+    "steps_en",
 ]
+
+_EN_FIELDS = ("title_en", "description_en", "ingredients_en", "steps_en")
+
+
+def _with_translations(recipe: dict) -> dict:
+    # Merge the English translation (by slug) onto the Japanese recipe. Always set every English
+    # field (None when untranslated) so all rows share the same columns for the bulk insert.
+    tr = TRANSLATIONS.get(recipe["slug"], {})
+    return {**recipe, **{field: tr.get(field) for field in _EN_FIELDS}}
 
 
 def seed_recipes(conn: Connection) -> None:
-    stmt = insert(Recipe).values(RECIPES)
+    values = [_with_translations(r) for r in RECIPES]
+    stmt = insert(Recipe).values(values)
     stmt = stmt.on_conflict_do_update(
         index_elements=[Recipe.slug],
         set_={name: stmt.excluded[name] for name in _UPDATABLE},
