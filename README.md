@@ -38,7 +38,16 @@ Runs locally with docker compose; on AWS, Terraform + SST build and tear down de
 - All API calls are made server-side by Next.js; the browser never calls the API directly
 - The DB password is stored in Secrets Manager and injected into the container via ECS `secrets`
 - Tables are created and seed data is loaded on API startup (`backend/app/seed.py`). There is no admin UI
-- Recipe images live in `frontend/public/images/*.svg`
+- Recipe images live in `frontend/public/images/`
+
+## Internationalization (i18n)
+
+The site is available in five languages — Japanese, English, Traditional Chinese, Simplified Chinese and Korean — built with **Next.js built-in features only, no i18n library** (no `next-intl` / `next-i18next`). This keeps the dependency list unchanged.
+
+- **Locale routing**: a dynamic `app/[locale]/` segment serves `/ja`, `/en`, `/zh-Hant`, `/zh-Hans`, `/ko`. `generateStaticParams` lists the locales.
+- **Middleware** (`frontend/middleware.ts`): redirects any path without a locale prefix to the default locale (`/` → `/ja`).
+- **UI dictionary**: plain TypeScript modules in `frontend/i18n/` (strings + category labels per locale) — not a library. A header language switcher links between locales.
+- **Recipe content**: the API returns the requested language via `?lang=<locale>` (Japanese is the default/base). Translations are stored per locale in a single `translations` JSON column on each recipe; non-Japanese search matches within that locale's text. Adding a locale is just a new entry in `frontend/i18n` + a `backend/app/seed_tr_<locale>.py` file.
 
 ## Run locally
 
