@@ -18,9 +18,7 @@ class Recipe(Base):
     ingredients: Mapped[list[dict]] = mapped_column(JSON)
     steps: Mapped[list[str]] = mapped_column(JSON)
 
-    # English translations (nullable). category is not translated here: it stays the Japanese
-    # grouping key, and the frontend maps it to a localized label.
-    title_en: Mapped[str | None] = mapped_column(String(128), nullable=True)
-    description_en: Mapped[str | None] = mapped_column(Text, nullable=True)
-    ingredients_en: Mapped[list[dict] | None] = mapped_column(JSON, nullable=True)
-    steps_en: Mapped[list[str] | None] = mapped_column(JSON, nullable=True)
+    # Translations keyed by locale, e.g. {"en": {title, description, ingredients, steps}, "ko": {...}}.
+    # Japanese is the base (the columns above); category is not translated here (it stays the
+    # Japanese grouping key, localized to a label in the frontend). Scales to any number of locales.
+    translations: Mapped[dict | None] = mapped_column(JSON, nullable=True)

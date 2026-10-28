@@ -28,9 +28,9 @@ async function get<T>(path: string): Promise<T | null> {
   return res.json() as Promise<T>;
 }
 
-// English content comes from ?lang=en; Japanese is the API default, so the param is omitted.
+// Non-Japanese content comes from ?lang=<locale>; Japanese is the API default, so the param is omitted.
 function langParam(locale: Locale): string {
-  return locale === "en" ? "lang=en" : "";
+  return locale === "ja" ? "" : `lang=${locale}`;
 }
 
 export type RecipeQuery = {
@@ -46,7 +46,7 @@ export async function fetchRecipes(locale: Locale, { category, q, sort, limit }:
   if (q) params.set("q", q);
   if (sort) params.set("sort", sort);
   if (limit) params.set("limit", String(limit));
-  if (locale === "en") params.set("lang", "en");
+  if (locale !== "ja") params.set("lang", locale);
   const query = params.size ? `?${params}` : "";
   return (await get<RecipeSummary[]>(`/api/recipes${query}`)) ?? [];
 }

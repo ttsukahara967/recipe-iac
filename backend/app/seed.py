@@ -6,7 +6,18 @@ from sqlalchemy import Connection
 from sqlalchemy.dialects.postgresql import insert
 
 from .models import Recipe
-from .seed_translations import TRANSLATIONS
+from .seed_tr_en import TRANSLATIONS as TR_EN
+from .seed_tr_ko import TRANSLATIONS as TR_KO
+from .seed_tr_zh_hans import TRANSLATIONS as TR_ZH_HANS
+from .seed_tr_zh_hant import TRANSLATIONS as TR_ZH_HANT
+
+# locale -> {slug: {title, description, ingredients, steps}}
+_LOCALE_TRANSLATIONS: dict[str, dict] = {
+    "en": TR_EN,
+    "zh-Hant": TR_ZH_HANT,
+    "zh-Hans": TR_ZH_HANS,
+    "ko": TR_KO,
+}
 
 RECIPES = [
     {
@@ -1898,20 +1909,16 @@ _UPDATABLE = [
     "image_path",
     "ingredients",
     "steps",
-    "title_en",
-    "description_en",
-    "ingredients_en",
-    "steps_en",
+    "translations",
 ]
-
-_EN_FIELDS = ("title_en", "description_en", "ingredients_en", "steps_en")
 
 
 def _with_translations(recipe: dict) -> dict:
-    # Merge the English translation (by slug) onto the Japanese recipe. Always set every English
-    # field (None when untranslated) so all rows share the same columns for the bulk insert.
-    tr = TRANSLATIONS.get(recipe["slug"], {})
-    return {**recipe, **{field: tr.get(field) for field in _EN_FIELDS}}
+    # Build the per-locale translations JSON (by slug). Locales missing a slug are simply omitted;
+    # the API falls back to the Japanese base for any missing locale or field.
+    slug = recipe["slug"]
+    translations = {loc: data[slug] for loc, data in _LOCALE_TRANSLATIONS.items() if slug in data}
+    return {**recipe, "translations": translations or None}
 
 
 def seed_recipes(conn: Connection) -> None:

@@ -24,10 +24,16 @@ export default $config({
 
     // SST issues the certificate (us-east-1) and creates the DNS records in the Route 53 zone
     const siteDomain = process.env.SITE_DOMAIN;
+    // Optional comma-separated hostnames that 301-redirect to the primary site domain.
+    // Defaults to redirecting www -> apex in production. Used to temporarily serve an
+    // environment on another domain (e.g. develop on the apex, redirecting the develop subdomain).
+    const redirectEnv = process.env.SITE_REDIRECTS?.split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
     const domain = siteDomain
       ? {
           name: siteDomain,
-          redirects: $app.stage === "production" ? [`www.${siteDomain}`] : undefined,
+          redirects: redirectEnv ?? ($app.stage === "production" ? [`www.${siteDomain}`] : undefined),
         }
       : undefined;
 

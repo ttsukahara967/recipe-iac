@@ -13,13 +13,15 @@ from .search import english_terms, query_variants, split_terms
 from .seed import seed_recipes
 
 
-# Columns added after the table first shipped. create_all() never alters an existing table,
-# so add them idempotently on startup (safe on a fresh DB too).
-_ADDED_COLUMNS = (
-    "ALTER TABLE recipes ADD COLUMN IF NOT EXISTS title_en VARCHAR(128)",
-    "ALTER TABLE recipes ADD COLUMN IF NOT EXISTS description_en TEXT",
-    "ALTER TABLE recipes ADD COLUMN IF NOT EXISTS ingredients_en JSON",
-    "ALTER TABLE recipes ADD COLUMN IF NOT EXISTS steps_en JSON",
+# Schema changes applied after the table first shipped. create_all() never alters an existing
+# table, so apply them idempotently on startup (safe on a fresh DB too). The per-locale JSON
+# column replaces the earlier *_en columns, which are dropped if present.
+_SCHEMA_DDL = (
+    "ALTER TABLE recipes ADD COLUMN IF NOT EXISTS translations JSON",
+    "ALTER TABLE recipes DROP COLUMN IF EXISTS title_en",
+    "ALTER TABLE recipes DROP COLUMN IF EXISTS description_en",
+    "ALTER TABLE recipes DROP COLUMN IF EXISTS ingredients_en",
+    "ALTER TABLE recipes DROP COLUMN IF EXISTS steps_en",
 )
 
 
@@ -30,17 +32,25 @@ async def lifespan(_: FastAPI):
     with engine.begin() as conn:
         conn.execute(text("SELECT pg_advisory_xact_lock(20260924)"))
         Base.metadata.create_all(conn)
-        for ddl in _ADDED_COLUMNS:
+        for ddl in _SCHEMA_DDL:
             conn.execute(text(ddl))
         seed_recipes(conn)
     yield
 
 
-Lang = Literal["ja", "en"]
+# Japanese is the base; every other locale is served from the translations JSON, falling back to
+# Japanese for any missing field.
+Lang = Literal["ja", "en", "zh-Hant", "zh-Hans", "ko"]
+
+
+def _tr(r: Recipe, lang: Lang) -> dict:
+    if lang == "ja":
+        return {}
+    return (r.translations or {}).get(lang) or {}
 
 
 def _localize_summary(r: Recipe, lang: Lang) -> dict:
-    en = lang == "en"
+    t = _tr(r, lang)
     return {
         "id": r.id,
         "slug": r.slug,
@@ -49,16 +59,16 @@ def _localize_summary(r: Recipe, lang: Lang) -> dict:
         "cook_time_minutes": r.cook_time_minutes,
         "servings": r.servings,
         "image_path": r.image_path,
-        "title": (r.title_en or r.title) if en else r.title,
-        "description": (r.description_en or r.description) if en else r.description,
+        "title": t.get("title") or r.title,
+        "description": t.get("description") or r.description,
     }
 
 
 def _localize_detail(r: Recipe, lang: Lang) -> dict:
     d = _localize_summary(r, lang)
-    en = lang == "en"
-    d["ingredients"] = (r.ingredients_en or r.ingredients) if en else r.ingredients
-    d["steps"] = (r.steps_en or r.steps) if en else r.steps
+    t = _tr(r, lang)
+    d["ingredients"] = t.get("ingredients") or r.ingredients
+    d["steps"] = t.get("steps") or r.steps
     return d
 
 
@@ -89,19 +99,20 @@ def list_recipes(
     stmt = select(Recipe).order_by(Recipe.id.desc() if sort == "new" else Recipe.id)
     if category:
         stmt = stmt.where(Recipe.category == category)
-    if lang == "en":
-        # English search: plain case-insensitive substring over the translated fields.
-        # The Japanese kana/synonym logic does not apply to English.
-        fields = (Recipe.title_en, Recipe.description_en, cast(Recipe.ingredients_en, String))
-        for term in english_terms(q):
-            stmt = stmt.where(or_(*(field.ilike(f"%{term}%", escape="\\") for field in fields)))
-    else:
+    if lang == "ja":
         for term in split_terms(q):
             fields = (Recipe.title, Recipe.description, Recipe.category, cast(Recipe.ingredients, String))
             # Every term must match (AND); each term may match any field in any kana form (OR)
             stmt = stmt.where(
                 or_(*(field.ilike(f"%{v}%", escape="\\") for v in query_variants(term) for field in fields))
             )
+    else:
+        # Non-Japanese search: plain case-insensitive substring over that locale's translated
+        # subtree (title/description/ingredients/steps). The Japanese kana/synonym logic does
+        # not apply. Scoping to translations[lang] avoids matching other locales' text.
+        sub = cast(Recipe.translations[lang], String)
+        for term in english_terms(q):
+            stmt = stmt.where(sub.ilike(f"%{term}%", escape="\\"))
     if limit:
         stmt = stmt.limit(limit)
     return [_localize_summary(r, lang) for r in session.scalars(stmt).all()]
