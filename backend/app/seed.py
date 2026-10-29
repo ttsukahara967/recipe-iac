@@ -27,7 +27,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 35,
         "servings": 2,
-        "image_path": "/images/nikujaga.webp",
+        "image_path": "/images/nikujaga.svg",
         "ingredients": [
             {"name": "牛薄切り肉", "amount": "150g"},
             {"name": "じゃがいも", "amount": "3個"},
@@ -54,7 +54,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/oyakodon.webp",
+        "image_path": "/images/oyakodon.svg",
         "ingredients": [
             {"name": "鶏もも肉", "amount": "100g"},
             {"name": "玉ねぎ", "amount": "1/4個"},
@@ -78,7 +78,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/carbonara.webp",
+        "image_path": "/images/carbonara.svg",
         "ingredients": [
             {"name": "スパゲッティ", "amount": "200g"},
             {"name": "ベーコン(ブロック)", "amount": "80g"},
@@ -102,7 +102,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/mapo-tofu.webp",
+        "image_path": "/images/mapo-tofu.svg",
         "ingredients": [
             {"name": "木綿豆腐", "amount": "1丁"},
             {"name": "豚ひき肉", "amount": "120g"},
@@ -127,7 +127,7 @@ RECIPES = [
         "category": "エスニック",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/green-curry.webp",
+        "image_path": "/images/green-curry.svg",
         "ingredients": [
             {"name": "鶏むね肉", "amount": "200g"},
             {"name": "なす", "amount": "1本"},
@@ -152,7 +152,7 @@ RECIPES = [
         "category": "デザート",
         "cook_time_minutes": 20,
         "servings": 4,
-        "image_path": "/images/strawberry-panna-cotta.webp",
+        "image_path": "/images/strawberry-panna-cotta.svg",
         "ingredients": [
             {"name": "生クリーム", "amount": "200ml"},
             {"name": "牛乳", "amount": "200ml"},
@@ -175,7 +175,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 10,
         "servings": 2,
-        "image_path": "/images/egg-fried-rice.webp",
+        "image_path": "/images/egg-fried-rice.svg",
         "ingredients": [
             {"name": "ごはん(温かいもの)", "amount": "茶碗2杯(約300g)"},
             {"name": "卵", "amount": "2個"},
@@ -200,7 +200,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 30,
         "servings": 2,
-        "image_path": "/images/beef-hamburg-steak.webp",
+        "image_path": "/images/beef-hamburg-steak.svg",
         "ingredients": [
             {"name": "牛ひき肉", "amount": "300g"},
             {"name": "塩", "amount": "小さじ1/2(約3g)"},
@@ -227,7 +227,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 40,
         "servings": 2,
-        "image_path": "/images/houtou.webp",
+        "image_path": "/images/houtou.svg",
         "ingredients": [
             {"name": "ほうとう麺(生)", "amount": "2玉(約300g)"},
             {"name": "かぼちゃ", "amount": "1/8個(約200g)"},
@@ -256,7 +256,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/kanitama-don.webp",
+        "image_path": "/images/kanitama-don.svg",
         "ingredients": [
             {"name": "卵", "amount": "4個"},
             {"name": "かに風味かまぼこ", "amount": "6本(約60g)"},
@@ -288,7 +288,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/black-vinegar-hiyashi-chuka.webp",
+        "image_path": "/images/black-vinegar-hiyashi-chuka.svg",
         "ingredients": [
             {"name": "中華生麺", "amount": "2玉"},
             {"name": "ハム", "amount": "4枚"},
@@ -319,7 +319,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 35,
         "servings": 3,
-        "image_path": "/images/pork-salmon-miso-chanko.webp",
+        "image_path": "/images/pork-salmon-miso-chanko.svg",
         "ingredients": [
             {"name": "豚バラ薄切り肉", "amount": "200g"},
             {"name": "生鮭(切り身)", "amount": "2切れ"},
@@ -357,7 +357,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/dashimaki-tamago.webp",
+        "image_path": "/images/dashimaki-tamago.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "だし汁(冷ましたもの)", "amount": "60ml"},
@@ -384,7 +384,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/hoikoro.webp",
+        "image_path": "/images/hoikoro.svg",
         "ingredients": [
             {"name": "豚バラ薄切り肉", "amount": "200g"},
             {"name": "キャベツ", "amount": "1/4個(約300g)"},
@@ -414,7 +414,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/machichuka-curry.webp",
+        "image_path": "/images/machichuka-curry.svg",
         "ingredients": [
             {"name": "豚こま切れ肉", "amount": "150g"},
             {"name": "玉ねぎ", "amount": "1個"},
@@ -448,7 +448,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/napolitan.webp",
+        "image_path": "/images/napolitan.svg",
         "ingredients": [
             {"name": "スパゲッティ(1.7mm前後)", "amount": "200g"},
             {"name": "ウインナー", "amount": "4本"},
@@ -479,7 +479,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/black-vinegar-chicken-nanban.webp",
+        "image_path": "/images/black-vinegar-chicken-nanban.svg",
         "ingredients": [
             {"name": "鶏もも肉", "amount": "1枚(約300g)"},
             {"name": "塩・こしょう", "amount": "少々"},
@@ -512,7 +512,7 @@ RECIPES = [
         "category": "飲んだあとの〆",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/uzumemeshi.webp",
+        "image_path": "/images/uzumemeshi.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "茶碗2杯(軽めに)"},
             {"name": "絹ごし豆腐", "amount": "1/3丁"},
@@ -541,7 +541,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/easy-gomoku-soba.webp",
+        "image_path": "/images/easy-gomoku-soba.svg",
         "ingredients": [
             {"name": "生ラーメン(醤油味・スープ付き)", "amount": "2食"},
             {"name": "炒め用カット野菜", "amount": "1袋(約200g)"},
@@ -569,7 +569,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/easy-tanmen.webp",
+        "image_path": "/images/easy-tanmen.svg",
         "ingredients": [
             {"name": "生ラーメン(塩味・スープ付き)", "amount": "2食"},
             {"name": "炒め用カット野菜(もやし・キャベツ・にんじん入り)", "amount": "1袋(約250g)"},
@@ -596,7 +596,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 50,
         "servings": 4,
-        "image_path": "/images/navy-style-curry.webp",
+        "image_path": "/images/navy-style-curry.svg",
         "ingredients": [
             {"name": "牛肉(カレー用角切り)", "amount": "300g"},
             {"name": "じゃがいも", "amount": "2個"},
@@ -630,7 +630,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/microwave-niku-tama-udon.webp",
+        "image_path": "/images/microwave-niku-tama-udon.svg",
         "ingredients": [
             {"name": "冷凍うどん", "amount": "1玉"},
             {"name": "豚こま切れ肉", "amount": "80g"},
@@ -657,7 +657,7 @@ RECIPES = [
         "category": "夜食・軽食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/cup-yakisoba-omusoba.webp",
+        "image_path": "/images/cup-yakisoba-omusoba.svg",
         "ingredients": [
             {"name": "市販のカップ焼きそば(ソース味)", "amount": "1個"},
             {"name": "卵", "amount": "2個"},
@@ -680,7 +680,7 @@ RECIPES = [
         "category": "夜食・軽食",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/cucumber-ham-sandwich.webp",
+        "image_path": "/images/cucumber-ham-sandwich.svg",
         "ingredients": [
             {"name": "サンドイッチ用食パン(耳なし)", "amount": "4枚"},
             {"name": "きゅうり", "amount": "1本"},
@@ -706,7 +706,7 @@ RECIPES = [
         "category": "飲んだあとの〆",
         "cook_time_minutes": 3,
         "servings": 1,
-        "image_path": "/images/potato-chips-chazuke.webp",
+        "image_path": "/images/potato-chips-chazuke.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "茶碗1杯"},
             {"name": "ポテトチップス(うす塩味)", "amount": "ひとつかみ(約15g)"},
@@ -729,7 +729,7 @@ RECIPES = [
         "category": "飲んだあとの〆",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/fukagawa-meshi.webp",
+        "image_path": "/images/fukagawa-meshi.svg",
         "ingredients": [
             {"name": "あさり(むき身・冷凍でも可)", "amount": "120g(殻付きなら300g)"},
             {"name": "長ねぎ", "amount": "1本"},
@@ -757,7 +757,7 @@ RECIPES = [
         "category": "飲んだあとの〆",
         "cook_time_minutes": 3,
         "servings": 1,
-        "image_path": "/images/ika-shiokara-wasabi-chazuke.webp",
+        "image_path": "/images/ika-shiokara-wasabi-chazuke.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "茶碗1杯(軽めに)"},
             {"name": "いかの塩辛(市販)", "amount": "大さじ1.5"},
@@ -782,7 +782,7 @@ RECIPES = [
         "category": "飲んだあとの〆",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/grilled-salmon-chazuke.webp",
+        "image_path": "/images/grilled-salmon-chazuke.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "茶碗1杯(軽めに)"},
             {"name": "甘塩鮭(切り身)", "amount": "1切れ(2切れ焼いておくと翌日も使える)"},
@@ -808,7 +808,7 @@ RECIPES = [
         "category": "お弁当",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/frozen-food-bento.webp",
+        "image_path": "/images/frozen-food-bento.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "弁当箱の半分"},
             {"name": "梅干し・ふりかけなど(お好みで)", "amount": "適量"},
@@ -833,7 +833,7 @@ RECIPES = [
         "category": "お弁当",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/mezashi-dokaben.webp",
+        "image_path": "/images/mezashi-dokaben.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "約400g(茶碗2.5杯分)"},
             {"name": "めざし", "amount": "4〜5尾"},
@@ -854,7 +854,7 @@ RECIPES = [
         "category": "キャンプ飯",
         "cook_time_minutes": 60,
         "servings": 1,
-        "image_path": "/images/home-hangou-rice.webp",
+        "image_path": "/images/home-hangou-rice.svg",
         "ingredients": [
             {"name": "米", "amount": "1合"},
             {"name": "水", "amount": "200ml"},
@@ -879,7 +879,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/tuna-omelette.webp",
+        "image_path": "/images/tuna-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "ツナ缶", "amount": "1缶(約70g)"},
@@ -903,7 +903,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/potato-omelette.webp",
+        "image_path": "/images/potato-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "じゃがいも", "amount": "1個"},
@@ -928,7 +928,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 5,
         "servings": 1,
-        "image_path": "/images/cheese-omelette.webp",
+        "image_path": "/images/cheese-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "牛乳", "amount": "大さじ1"},
@@ -952,7 +952,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/minced-meat-omelette.webp",
+        "image_path": "/images/minced-meat-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "合いびき肉", "amount": "100g"},
@@ -981,7 +981,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/mushroom-butter-soy-omelette.webp",
+        "image_path": "/images/mushroom-butter-soy-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "しめじ", "amount": "1/2パック"},
@@ -1006,7 +1006,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/spinach-bacon-omelette.webp",
+        "image_path": "/images/spinach-bacon-omelette.svg",
         "ingredients": [
             {"name": "卵", "amount": "3個"},
             {"name": "ほうれん草(冷凍でも可)", "amount": "50g"},
@@ -1031,7 +1031,7 @@ RECIPES = [
         "category": "沖縄料理",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/goya-champuru.webp",
+        "image_path": "/images/goya-champuru.svg",
         "ingredients": [
             {"name": "ゴーヤー", "amount": "1/2本"},
             {"name": "島豆腐(なければ木綿豆腐)", "amount": "1/2丁(約150g)"},
@@ -1059,7 +1059,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/natto-croquette-teishoku.webp",
+        "image_path": "/images/natto-croquette-teishoku.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "茶碗1杯"},
             {"name": "冷凍コロッケ", "amount": "2個"},
@@ -1087,7 +1087,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/ham-egg-teishoku.webp",
+        "image_path": "/images/ham-egg-teishoku.svg",
         "ingredients": [
             {"name": "ロースハム", "amount": "3枚"},
             {"name": "卵", "amount": "2個"},
@@ -1115,7 +1115,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/moyashi-itame-teishoku.webp",
+        "image_path": "/images/moyashi-itame-teishoku.svg",
         "ingredients": [
             {"name": "もやし", "amount": "1袋(約200g)"},
             {"name": "豚こま切れ肉", "amount": "50g"},
@@ -1143,7 +1143,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/pork-shogayaki-teishoku.webp",
+        "image_path": "/images/pork-shogayaki-teishoku.svg",
         "ingredients": [
             {"name": "豚こま切れ肉", "amount": "150g"},
             {"name": "玉ねぎ", "amount": "1/4個"},
@@ -1174,7 +1174,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/tofu-steak-teishoku.webp",
+        "image_path": "/images/tofu-steak-teishoku.svg",
         "ingredients": [
             {"name": "木綿豆腐", "amount": "1/2丁(約150g)"},
             {"name": "片栗粉", "amount": "大さじ1"},
@@ -1203,7 +1203,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/chikuwa-isobeyaki-teishoku.webp",
+        "image_path": "/images/chikuwa-isobeyaki-teishoku.svg",
         "ingredients": [
             {"name": "ちくわ", "amount": "4本"},
             {"name": "【衣】小麦粉", "amount": "大さじ3"},
@@ -1230,7 +1230,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/wiener-cabbage-teishoku.webp",
+        "image_path": "/images/wiener-cabbage-teishoku.svg",
         "ingredients": [
             {"name": "ウインナー", "amount": "5本"},
             {"name": "キャベツ", "amount": "2枚(約100g)"},
@@ -1257,7 +1257,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 15,
         "servings": 1,
-        "image_path": "/images/atsuage-nikumiso-teishoku.webp",
+        "image_path": "/images/atsuage-nikumiso-teishoku.svg",
         "ingredients": [
             {"name": "厚揚げ", "amount": "1枚"},
             {"name": "甘辛肉味噌(「ごはんのお供」のレシピ、または豚ひき肉50g+味噌・砂糖各小さじ2)", "amount": "大さじ3"},
@@ -1283,7 +1283,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/tamagoyaki-hiyayakko-teishoku.webp",
+        "image_path": "/images/tamagoyaki-hiyayakko-teishoku.svg",
         "ingredients": [
             {"name": "卵", "amount": "2個"},
             {"name": "砂糖", "amount": "小さじ2"},
@@ -1310,7 +1310,7 @@ RECIPES = [
         "category": "定食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/shishamo-teishoku.webp",
+        "image_path": "/images/shishamo-teishoku.svg",
         "ingredients": [
             {"name": "子持ちししゃも", "amount": "5尾"},
             {"name": "大根おろし", "amount": "適量"},
@@ -1336,7 +1336,7 @@ RECIPES = [
         "category": "粉もん・鉄板焼き",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/butatama-okonomiyaki.webp",
+        "image_path": "/images/butatama-okonomiyaki.svg",
         "ingredients": [
             {"name": "キャベツ", "amount": "1/4個(約250g)"},
             {"name": "豚バラ薄切り肉", "amount": "4枚"},
@@ -1365,7 +1365,7 @@ RECIPES = [
         "category": "粉もん・鉄板焼き",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/sauce-yakisoba.webp",
+        "image_path": "/images/sauce-yakisoba.svg",
         "ingredients": [
             {"name": "焼きそば用蒸し麺(ソース付き)", "amount": "2玉"},
             {"name": "豚こま切れ肉", "amount": "100g"},
@@ -1392,7 +1392,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 30,
         "servings": 3,
-        "image_path": "/images/gutakusan-suiton.webp",
+        "image_path": "/images/gutakusan-suiton.svg",
         "ingredients": [
             {"name": "【団子】薄力粉", "amount": "100g"},
             {"name": "【団子】水", "amount": "70ml"},
@@ -1424,7 +1424,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 35,
         "servings": 3,
-        "image_path": "/images/kenchin-jiru.webp",
+        "image_path": "/images/kenchin-jiru.svg",
         "ingredients": [
             {"name": "木綿豆腐", "amount": "1/2丁"},
             {"name": "大根", "amount": "4cm"},
@@ -1457,7 +1457,7 @@ RECIPES = [
         "category": "エスニック",
         "cook_time_minutes": 45,
         "servings": 4,
-        "image_path": "/images/spice-chicken-curry.webp",
+        "image_path": "/images/spice-chicken-curry.svg",
         "ingredients": [
             {"name": "鶏もも肉", "amount": "300g"},
             {"name": "【下味】プレーンヨーグルト", "amount": "大さじ3"},
@@ -1491,7 +1491,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 60,
         "servings": 4,
-        "image_path": "/images/homemade-chashu.webp",
+        "image_path": "/images/homemade-chashu.svg",
         "ingredients": [
             {"name": "豚肩ロースかたまり肉(脂が好きならバラ)", "amount": "500g"},
             {"name": "タコ糸(あれば)", "amount": "適量"},
@@ -1523,7 +1523,7 @@ RECIPES = [
         "category": "デザート",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/fluffy-pancakes.webp",
+        "image_path": "/images/fluffy-pancakes.svg",
         "ingredients": [
             {"name": "薄力粉", "amount": "150g"},
             {"name": "ベーキングパウダー", "amount": "小さじ2"},
@@ -1549,7 +1549,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 10,
         "servings": 4,
-        "image_path": "/images/homemade-nametake.webp",
+        "image_path": "/images/homemade-nametake.svg",
         "ingredients": [
             {"name": "えのき", "amount": "1袋(約200g)"},
             {"name": "醤油", "amount": "大さじ2"},
@@ -1573,7 +1573,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 15,
         "servings": 4,
-        "image_path": "/images/salmon-flakes.webp",
+        "image_path": "/images/salmon-flakes.svg",
         "ingredients": [
             {"name": "甘塩鮭(切り身)", "amount": "2切れ"},
             {"name": "酒", "amount": "大さじ1"},
@@ -1596,7 +1596,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 10,
         "servings": 4,
-        "image_path": "/images/negi-miso.webp",
+        "image_path": "/images/negi-miso.svg",
         "ingredients": [
             {"name": "長ねぎ", "amount": "1本"},
             {"name": "味噌", "amount": "大さじ3"},
@@ -1620,7 +1620,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 5,
         "servings": 2,
-        "image_path": "/images/soy-cured-egg-yolk.webp",
+        "image_path": "/images/soy-cured-egg-yolk.svg",
         "ingredients": [
             {"name": "卵(新鮮なもの)", "amount": "2個"},
             {"name": "醤油", "amount": "大さじ2"},
@@ -1643,7 +1643,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 15,
         "servings": 4,
-        "image_path": "/images/spicy-konnyaku.webp",
+        "image_path": "/images/spicy-konnyaku.svg",
         "ingredients": [
             {"name": "こんにゃく", "amount": "1枚(約250g)"},
             {"name": "ごま油", "amount": "大さじ1"},
@@ -1669,7 +1669,7 @@ RECIPES = [
         "category": "ごはんのお供",
         "cook_time_minutes": 10,
         "servings": 4,
-        "image_path": "/images/sweet-niku-miso.webp",
+        "image_path": "/images/sweet-niku-miso.svg",
         "ingredients": [
             {"name": "豚ひき肉", "amount": "150g"},
             {"name": "おろし生姜(チューブ可)", "amount": "小さじ1"},
@@ -1695,7 +1695,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 10,
         "servings": 2,
-        "image_path": "/images/niratama.webp",
+        "image_path": "/images/niratama.svg",
         "ingredients": [
             {"name": "ニラ", "amount": "1束(約100g)"},
             {"name": "卵", "amount": "3個"},
@@ -1722,7 +1722,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 15,
         "servings": 2,
-        "image_path": "/images/machichuka-curry-ramen.webp",
+        "image_path": "/images/machichuka-curry-ramen.svg",
         "ingredients": [
             {"name": "生ラーメン(醤油味・スープ付き)", "amount": "2食"},
             {"name": "豚こま切れ肉", "amount": "100g"},
@@ -1749,7 +1749,7 @@ RECIPES = [
         "category": "中華",
         "cook_time_minutes": 20,
         "servings": 2,
-        "image_path": "/images/mapo-tofu-ramen.webp",
+        "image_path": "/images/mapo-tofu-ramen.svg",
         "ingredients": [
             {"name": "生ラーメン(しょうゆ味・スープ付き)", "amount": "2食"},
             {"name": "絹ごし豆腐", "amount": "1丁(300g)"},
@@ -1783,7 +1783,7 @@ RECIPES = [
         "category": "和食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/kinugasa-don.webp",
+        "image_path": "/images/kinugasa-don.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "丼1杯"},
             {"name": "油揚げ", "amount": "1枚"},
@@ -1811,7 +1811,7 @@ RECIPES = [
         "category": "夜食・軽食",
         "cook_time_minutes": 10,
         "servings": 1,
-        "image_path": "/images/cheese-gyudon.webp",
+        "image_path": "/images/cheese-gyudon.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "丼1杯"},
             {"name": "牛こま切れ肉", "amount": "120g"},
@@ -1842,7 +1842,7 @@ RECIPES = [
         "category": "沖縄料理",
         "cook_time_minutes": 30,
         "servings": 2,
-        "image_path": "/images/okinawa-soba.webp",
+        "image_path": "/images/okinawa-soba.svg",
         "ingredients": [
             {"name": "沖縄そば麺(なければ中華麺の細めでも)", "amount": "2玉"},
             {"name": "豚バラブロック(三枚肉)", "amount": "250g"},
@@ -1873,7 +1873,7 @@ RECIPES = [
         "category": "洋食",
         "cook_time_minutes": 25,
         "servings": 2,
-        "image_path": "/images/loco-moco.webp",
+        "image_path": "/images/loco-moco.svg",
         "ingredients": [
             {"name": "ごはん", "amount": "丼2杯"},
             {"name": "合いびき肉", "amount": "250g"},
